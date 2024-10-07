@@ -12,31 +12,31 @@
     <ol>
       <li>Where should you use constants, and where should you use variables? Can they all be constants?</li>
       <p>
-				[Replace this with you answer]
+				Constants should be used for values that are not meant to change throughout the program, such as mathematical constants or configurations. Variables should be used for values that are dynamic, and are meant to change during execution, such as counters in loops or user input. While you technically can declare all values as constants, doing so would limit your ability to modify those values later, leading to inflexible code. Therefor it is best practice to use constants for constant values and variables for dynamic ones. 
 			</p>
       <li>How do parentheses affect the arithmetic outcome of an expression?</li>
       <p>
-				[Replace this with you answer]
+				Parentheses in arithmetic expressions are used to dictate the order of operations. The normal order of operations is as following: parentheses, exponents, multiplication and division, addition and subtraction. This means that the use and placement of them can significantly affect the outcome.
 			</p>
       <li>How do we limit floating-point numbers to a given number of decimals?</li>
       <p>
-				[Replace this with you answer]
+				To limit floating point numbers to a given number of decimals, we can apply the toFixed() method. This method formats a number using fixed point notation. However this function returns a string. To covert it to a float we can use parseFloat().
 			</p>
       <li>How can we compare two floating-point values to see if they are equal (is 12.199999 the same as 12.2)?</li>
       <p>
-				[Replace this with you answer]
+				When comparing two floating-point values in JavaScript, such as 12.199999 and 12.2, we need to consider the inherent precision issues associated with floating-point arithmetic. We can define a tolerance level to determine if the numbers are close enough to be considered “equal”.  For instance, we can check if the absolute difference between the two numbers is within a specified threshold, such as 0.01. In this case this is true and the two numbers can be considered equal for practical purposes.
 			</p>
       <li>What do comparison operators return, and how can we check if they are FALSE or TRUE?</li>
       <p>
-				[Replace this with you answer]
+				Comparison operators return a boolean value, true or false. To check if they are true or false we can use conditional statements like if statements. This allows us to make decisions in our code based on the outcomes of these comparisons. 
 			</p>
       <li>How does the Math.random() function work, and what can it be used for?</li>
       <p>
-				[Replace this with you answer]
+				The Math.random() function generates a pseudo random floating point number between 0 and 1. Each time it is called it generates a different number, making it useful for various applications that require randomness, such as games, unique identifiers and chance based outcomes. 
 			</p>
       <li>What is modulus (%), and when do we need this operator in mathematical operations?</li>
       <p>
-				[Replace this with you answer]
+				The modulus operator returns the remainder of a division operation between two numbers. It can be useful for determining if a number is even or odd, implementing circular behaviour, and controlling loops.
 			</p>
     </ol>
 		<script type="module" src="./task_2-2.mjs" defer></script>
