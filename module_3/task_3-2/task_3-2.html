@@ -10,8 +10,17 @@
       <span id="txtOut" style="white-space: nowrap"></span>
     </div>
     <ol>
-      <li>[Write the question here, and copy this for more questions]</li>
-      <p>[Write your answer here, and copy this for more answers]</p>
+      <li>In Part 1, is it possible to solve the problem using a single "for" loop?</li>
+      <p>We could do it by iterating from 1 to 10, and with each iteration append the current count to both of the rows by adjusting the order. The countdown will print in reverse order.</p>
+
+      <li>In Part 2, can we create what is known as an "infinite" loop within the condition of the "while" loop?</li>
+      <p>If the condition is always true, it is an infinite loop. Can be avoided by adding a break point.</p>
+
+      <li>Discuss briefly how quickly or slowly a computer might be able to compute this, considering the number of guesses and the time it takes. How does the program behave while it is guessing? Can the program perform other tasks concurrently?</li>
+      <p>The computer's speed depends on the range of possible numbers. The range is quite small in this case. Can therefor be done in milliseconds to seconds. The environment is single-threaded and the computer can not perform other javascript tasks at the same time.</p>
+
+      <li>Explain the relationship between rows and columns in nested "for" loops. Can we, for instance, change the order, considering rows to be innermost or columns to be innermost, or does this not matter?</li>
+      <p>Changing the order would change the printing order. The outer loop will print first. Does not matter if you just need to print a static table but if you need to add rows or columns you should place the decided on the outer loop.</p>
     </ol>
     <script type="module" src="./task_3-2.mjs" defer></script>
   </body>
