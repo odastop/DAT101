@@ -46,3 +46,31 @@ const boyNames = ["Jakob", "Lucas", "Emil", "Oskar", "Oliver", "William", "Filip
 const allNames = girlNames.concat(boyNames);
 printOut(allNames.join(", "));
 printOut(newLine);
+
+printOut("--- Part 6 ----------------------------------------------------------------------------------------------");
+class TBook {
+    #title;
+    #author;
+    #isbn;
+
+    constructor(aTitle, aAuthor, aISBN) {
+        this.#title = aTitle;
+        this.#author = aAuthor;
+        this.#isbn = aISBN;
+    }
+
+    toString() {
+        return `Title: ${this.#title}, Author: ${this.#author}, ISBN: ${this.#isbn}`;
+    }
+}
+
+const books = [
+    new TBook("En Pingles Dagbok - Salig Røre", "Jeff Kinney", "9788205570115"),
+    new TBook("En Pingles Dagbok - Bruk Huet!", "Jeff Kinney", "9788205570092"),
+    new TBook("En Pingles Dagbok - Ferieparadiset", "Jeff Kinney", "9788205509498")
+];
+
+// Print out each book using a loop
+books.forEach((book) => printOut(book.toString()));
+
+printOut(newLine);
