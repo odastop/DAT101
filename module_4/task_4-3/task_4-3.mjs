@@ -46,22 +46,86 @@ const MovieGenre = [
 ];
 
 //--- Part 1 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+document.getElementById("cmbTask1Calculate").addEventListener("click", () => {
+  const width = parseFloat(document.getElementById("txtRectWidth").value);
+  const height = parseFloat(document.getElementById("txtRectHeight").value);
+
+  if (isNaN(width) || isNaN(height)) {
+    alert("Please enter valid numbers for width and height.");
+    return;
+  }
+
+  const circumference = 2 * (width + height);
+  const area = width * height;
+
+  document.getElementById("txtTask1Output").textContent = `Circumference = ${circumference}, Area = ${area}`;
+});
 
 //--- Part 2 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+const task2Words = [];
+
+document.getElementById("txtTask2Word").addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    const inputField = document.getElementById("txtTask2Word");
+    const word = inputField.value.trim();
+
+    if (word) {
+      task2Words.push(word);
+      inputField.value = ""; 
+    }
+
+    const wordCount = task2Words.length;
+    const wordList = task2Words.join(", ");
+    document.getElementById("txtTask2Output").textContent = `Number of words = ${wordCount}, Words: ${wordList}`;
+
+    event.preventDefault(); 
+  }
+});
 
 //--- Part 3 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+document.getElementById("cmbTask3CheckAnswer").addEventListener("click", () => {
+  const checkboxes = document.querySelectorAll("input[name='chkTask3']:checked");
+  const selectedTexts = Array.from(checkboxes).map((checkbox) => checkbox.parentElement.textContent.trim());
+
+  if (selectedTexts.length > 0) {
+    document.getElementById("txtTask3Output").textContent = `Selected: ${selectedTexts.join(", ")}`;
+  } else {
+    document.getElementById("txtTask3Output").textContent = "No checkboxes selected.";
+  }
+});
 
 //--- Part 4 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+const divTask4Cars = document.getElementById("divTask4Cars");
+const txtTask4Output = document.getElementById("txtTask4Output");
+
+CarTypes.forEach((car) => {
+  const radio = document.createElement("input");
+  radio.type = "radio";
+  radio.name = "carType";
+  radio.value = car.caption;
+  radio.id = `car-${car.value}`;
+
+  const label = document.createElement("label");
+  label.htmlFor = `car-${car.value}`;
+  label.textContent = car.caption;
+
+  divTask4Cars.appendChild(radio);
+  divTask4Cars.appendChild(label);
+  divTask4Cars.appendChild(document.createElement("br"));
+});
+
+// Event listener to display selected car
+divTask4Cars.addEventListener("change", (event) => {
+  if (event.target.name === "carType") {
+    txtTask4Output.textContent = `Selected Car: ${event.target.value}`;
+  }
+});
 
 //--- Part 5 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+const selectTask5Animals = document.getElementById("selectTask5Animals");
+const txtTask5Output = document.getElementById("txtTask5Output");
 
-//--- Part 6 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
-
-//--- Part 7 ----------------------------------------------------------------------------------------------
-/* Put your code below here!*/
+selectTask5Animals.addEventListener("change", () => {
+  const selectedAnimal = selectTask5Animals.options[selectTask5Animals.selectedIndex].text;
+  txtTask5Output.textContent = `You selected: ${selectedAnimal}`;
+});
