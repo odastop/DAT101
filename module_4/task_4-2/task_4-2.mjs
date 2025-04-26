@@ -70,7 +70,7 @@ const books = [
     new TBook("En Pingles Dagbok - Ferieparadiset", "Jeff Kinney", "9788205509498")
 ];
 
-// Print out each book using a loop
+
 books.forEach((book) => printOut(book.toString()));
 
 printOut(newLine);

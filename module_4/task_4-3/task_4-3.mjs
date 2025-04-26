@@ -114,7 +114,6 @@ CarTypes.forEach((car) => {
   divTask4Cars.appendChild(document.createElement("br"));
 });
 
-// Event listener to display selected car
 divTask4Cars.addEventListener("change", (event) => {
   if (event.target.name === "carType") {
     txtTask4Output.textContent = `Selected Car: ${event.target.value}`;
