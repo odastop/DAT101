@@ -33,15 +33,25 @@ class THero extends libSprite.TSprite {
       this.rotation = this.#velocity* 10;
       this.#velocity += this.#gravity;
     } else {
-      this.posY = groundY - this.#spi.height;
+      this.posY = groundY - this.#spi.height; 
       GameProps.status = EGameStatus.gameOver;
       this.animateSpeed = 0;
       GameProps.sounds.running.stop();
+      if (GameProps.sounds.heroIsDead) { //sound for game over
+        GameProps.sounds.heroIsDead.pause();
+        GameProps.sounds.heroIsDead.currentTime = 0; 
+        GameProps.sounds.heroIsDead.play();
+      }
     }
   }
 
-  flap() {
+  flap() { //added flapping sound
     this.#velocity = -3;
+    if (GameProps.sounds.flap) {
+      GameProps.sounds.flap.pause();
+      GameProps.sounds.flap.currentTime = 0; 
+      GameProps.sounds.flap.play();
+    }
   }
 
   updateIdle(){

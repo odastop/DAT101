@@ -25,6 +25,16 @@ class TObstacle {
     this.hasPassed = false;
   }
 
+  updateAppearance(timeOfDay) { //function for updating style of obstacles. Uses index in sprite.
+    if (timeOfDay === 'day') {
+      this.#upper.index = 3;
+      this.#lower.index = 2;
+    } else {
+      this.#upper.index = 1;
+      this.#lower.index = 0;
+    }
+  }
+
   draw(){
     this.#upper.draw();
     this.#lower.draw();
@@ -39,7 +49,12 @@ class TObstacle {
 
     if(hasCollided){
       GameProps.hero.flap();
-      GameProps.hero.isDead = true;
+      GameProps.hero.isDead = true; //added sound for death by collision
+      if (GameProps.sounds.gameOver) {
+        GameProps.sounds.gameOver.pause();
+        GameProps.sounds.gameOver.currentTime = 0; 
+        GameProps.sounds.gameOver.play();
+      }
     }
   }
 

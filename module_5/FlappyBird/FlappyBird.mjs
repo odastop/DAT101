@@ -46,7 +46,7 @@ export const GameProps = {
   menu: null,
   score: 0,
   bestScore: 0,
-  sounds: {countDown: null, food: null, gameOver: null, dead: null, running: null},
+  sounds: {countDown: null, food: null, gameOver: null, dead: null, running: null, flap: null},
 };
 
 //--------------- Functions ----------------------------------------------//
@@ -76,6 +76,12 @@ function loadGame() {
 
   //Load sounds
   GameProps.sounds.running = new libSound.TSoundFile("./Media/running.mp3");
+  GameProps.sounds.countDown = new libSound.TSoundFile("./Media/countDown.mp3");
+  GameProps.sounds.food = new libSound.TSoundFile("./Media/food.mp3");
+  GameProps.sounds.flap = new libSound.TSoundFile("./Media/flap.mp3");
+  GameProps.sounds.heroIsDead = new libSound.TSoundFile("./Media/heroIsDead.mp3");
+  GameProps.sounds.gameOver = new libSound.TSoundFile("./Media/gameOver.mp3");
+
 
   requestAnimationFrame(drawGame);
   setInterval(animateGame, 10);
@@ -149,7 +155,12 @@ function animateGame() {
           delBaitIndex = i;
         }
       }
-      if (delBaitIndex >= 0) {
+      if (delBaitIndex >= 0) { //adding sound to bait catching 
+        if (GameProps.sounds.food) {
+          GameProps.sounds.food.pause();          
+          GameProps.sounds.food.currentTime = 0; 
+          GameProps.sounds.food.play();          
+        }
         GameProps.baits.splice(delBaitIndex, 1);
         GameProps.menu.incScore(10);
       }
@@ -207,13 +218,21 @@ function setSoundOnOff() {
   }
 } // end of setSoundOnOff
 
-function setDayNight() {
+function setDayNight() { //fixed day night function. used index in sprite.
   if (rbDayNight[0].checked) {
     GameProps.dayTime = true;
     console.log("Day time");
+    GameProps.background.index = 0;
+    GameProps.obstacles.forEach(obstacle => {
+      obstacle.updateAppearance('day');
+    });
   } else {
     GameProps.dayTime = false;
     console.log("Night time");
+    GameProps.background.index = 1;
+    GameProps.obstacles.forEach(obstacle => {
+      obstacle.updateAppearance('night');
+    });
   }
 } // end of setDayNight
 

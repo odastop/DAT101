@@ -131,10 +131,17 @@ export class TMenu {
     }
   };
 
+  //Implemented countdown sound.
   #onClick = () => {
     if (this.#activeSprite === this.#spButtonPlay) {
+      this.reset();
       GameProps.status = EGameStatus.getReady;
       this.#spcvs.style.cursor = "default";
+      if (GameProps.sounds.countDown) {
+        GameProps.sounds.countDown.pause();
+        GameProps.sounds.countDown.currentTime = 0;
+        GameProps.sounds.countDown.play();
+      }
       setTimeout(this.#onCountDown, 1000);
     }
   };
