@@ -1,12 +1,14 @@
 "use strict";
+//imports
 import lib2D from "../../common/libs/lib2d_v2.mjs";
 import libSprite from "../../common/libs/libSprite_v2.mjs";
 import MastermindBoard from "./MastermindBoard.mjs";
 import { GameProps } from "./Mastermind.mjs";
 
+//henter posisjoner for fargevelgere
 const Positions = MastermindBoard.ColorPicker;
 
-
+//klasse for color pickers brukt av spilleren
 export class TColorPicker extends libSprite.TSpriteDraggable {
   #spcvs;
   #spi;
@@ -26,10 +28,12 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
     this.#snapIndex = -1;
   }
 
+  //kan ikke dra oppå andre like items
   onCanDrop(){
     return false;
   }
 
+  //kloner color picker når den er droppet. Kan da brukes flere ganger.
   clone(){
     return new TColorPicker(
       this.#spcvs,
@@ -50,9 +54,9 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
     GameProps.playerAnswers[this.#snapIndex] = this;
   }
 
+  //kalles når spilleren trykker på en color picker
   onMouseDown(){
     super.onMouseDown();
-    //Få denne knappen til å være i det øverste laget
     const index = GameProps.colorPickers.indexOf(this);
     GameProps.colorPickers.splice(index, 1);
     GameProps.colorPickers.push(this);
@@ -64,15 +68,12 @@ export class TColorPicker extends libSprite.TSpriteDraggable {
     }
   }
 
+  //kalles hvis spilleren slipper color picker utenfor et valgt område.
   onCancelDrop(){
-    //Fjern denne knappen fra listen over knapper.
-    //Først finn indeksen til denne knappen
-    //Deretter fjern knappen fra listen
     if(this.#hasMoved){
       const index = GameProps.colorPickers.indexOf(this);
       GameProps.colorPickers.splice(index, 1);
       this.spcvs.removeSpriteButton(this); 
     }
   }
-
 } 
