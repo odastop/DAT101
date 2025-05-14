@@ -1,20 +1,12 @@
 "use strict";
-
-//--------------------------------------------------------------------------------------------------------------------
-//------ Imports
-//--------------------------------------------------------------------------------------------------------------------
+//imports
 import lib2D from "../../common/libs/lib2d_v2.mjs";
 import libSprite from "../../common/libs/libSprite_v2.mjs";
 import { TColorPicker } from "./ColorPicker.mjs";
 import MastermindBoard from "./MastermindBoard.mjs";
 import { TMenu } from "./menu.mjs";
 
-
-//--------------------------------------------------------------------------------------------------------------------
-//------ Variables, Constants and Objects
-//--------------------------------------------------------------------------------------------------------------------
-
-// prettier-ignore
+//sprite info, inkludert for spillebrettet
 export const SpriteInfoList = {
   Board:              { x: 640, y:   0, width: 441, height: 640, count: 1 },
   ButtonNewGame:      { x:   0, y:  45, width: 160, height:  45, count: 4 },
@@ -25,10 +17,11 @@ export const SpriteInfoList = {
   ColorHint:          { x:   0, y: 250, width:  19, height:  18, count: 3 },
 };
 
+//sette opp canvas
 const cvs = document.getElementById("cvs");
 const spcvs = new libSprite.TSpriteCanvas(cvs);
 
-//Add all you game objects here
+//felles objekter som blir brukt i flere moduler
 export const GameProps = {
   board: null,
   colorPickers:[],
@@ -43,13 +36,8 @@ export const GameProps = {
   answerHintRow: MastermindBoard.AnswerHint.Row1,
 }
 
-
-//--------------------------------------------------------------------------------------------------------------------
-//------ Functions
-//--------------------------------------------------------------------------------------------------------------------
-
+//nytt spill. resetter det som trengs til start.
 export function newGame() {
-  //Vi må fjerne alle farger fra colorPickers, her ligger også player answers
   for(let i = 0; i < GameProps.colorPickers.length; i++){
     const colorPicker = GameProps.colorPickers[i];
     spcvs.removeSpriteButton(colorPicker);
@@ -57,11 +45,13 @@ export function newGame() {
   GameProps.colorPickers = [];
   const ColorKeys = Object.keys(MastermindBoard.ColorPicker);
   
+  //går til første rad
   GameProps.snapTo.positions = MastermindBoard.ColorAnswer.Row1;
   moveRoundIndicator();
 
+  //lager nye color picker knapper
   for(let i = 0; i < ColorKeys.length; i++){
-    const colorName = ColorKeys[i]; //Color name
+    const colorName = ColorKeys[i];
     const colorPicker = new TColorPicker(spcvs, SpriteInfoList.ColorPicker, colorName, i);
     GameProps.colorPickers.push(colorPicker);
   }
@@ -69,9 +59,11 @@ export function newGame() {
   generateComputerAnswer();
 }
 
+//tegner spillet
 function drawGame(){
   spcvs.clearCanvas();
-  //Draw all game objects here, remember to think about the draw order (layers in PhotoShop for example!)
+
+  //her tegnes spillebrettet først.
   GameProps.board.draw();
 
   for(let i = 0; i < GameProps.computerAnswers.length; i++){
@@ -83,6 +75,7 @@ function drawGame(){
 
   GameProps.menu.draw();
 
+  //tegner fargevelgere
   for(let i = 0; i < GameProps.colorPickers.length; i++){
     const colorPicker = GameProps.colorPickers[i];
     colorPicker.draw();
@@ -91,10 +84,8 @@ function drawGame(){
   requestAnimationFrame(drawGame);
 }
 
+//velger tilfeldig 4 farger som hemmelig svar
 function generateComputerAnswer(){
-  //Først må vi genere 4 tilfeldige farger
-  //Deretter må vi plassere disse fargene i computerAnswers
-  //Vi må bruke libSprite.TSprite for å lage en sprite for hver farge
   for(let i = 0; i < 4 ; i++){
     const colorIndex = Math.floor(Math.random() * SpriteInfoList.ColorPicker.count);
     const pos = MastermindBoard.ComputerAnswer[i];
@@ -105,22 +96,20 @@ function generateComputerAnswer(){
 
 }
 
+
 export function moveRoundIndicator(){
   const pos = GameProps.snapTo.positions[0];
   GameProps.roundIndicator.x = pos.x - 84;
   GameProps.roundIndicator.y = pos.y + 7;
 }
 
-//--------------------------------------------------------------------------------------------------------------------
-//------ Event Handlers
-//--------------------------------------------------------------------------------------------------------------------
-
-//loadGame runs once when the sprite sheet is loaded
+//loader spillet
 function loadGame() {
-  //Set canvas with and height to match the sprite sheet
+  //canvas størrelsen skal matche dimensjonene til brettet
   cvs.width = SpriteInfoList.Board.width;
   cvs.height = SpriteInfoList.Board.height;
   spcvs.updateBoundsRect();
+  //instanserer ved hjelp av SpriteInfoList.Board
   let pos = new lib2D.TPoint(0, 0);
   GameProps.board = new libSprite.TSprite(spcvs, SpriteInfoList.Board, pos);
 
@@ -131,15 +120,11 @@ function loadGame() {
 
   GameProps.menu = new TMenu(spcvs);
 
+  //starter nytt spill og tegner
   newGame();
-  requestAnimationFrame(drawGame); // Start the animation loop
+  requestAnimationFrame(drawGame); 
 }
 
-
-//--------------------------------------------------------------------------------------------------------------------
-//------ Main Code
-//--------------------------------------------------------------------------------------------------------------------
-
-
+//main
 spcvs.loadSpriteSheet("./Media/SpriteSheet.png", loadGame);
 window.addEventListener("resize", spcvs.updateBoundsRect.bind(spcvs));
