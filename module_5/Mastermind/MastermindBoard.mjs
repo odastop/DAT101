@@ -1,6 +1,6 @@
 "use strict";
 
-// prettier-ignore
+//denne filen lager layout for spillbrettet. Legger posisjoner for knapper og diverse.
 const MastermindBoard = {
   ButtonNewGame:        {x: 275, y:  5},
   ButtonCheckAnswer:    {x: 275, y: 53},
