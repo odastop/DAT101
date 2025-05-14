@@ -15,7 +15,7 @@ import { TBrick } from "./brick.mjs";
 
 // prettier-ignore
 export const SpriteInfoList = {
-  Background:         { x: 1392, y:    0, width: 1187, height: 771, count:  1 },
+  Board:         { x: 1392, y:    0, width: 1187, height: 771, count:  1 },
   BrickPurple:        { x:    0, y:  717, width:  140, height:  41, count:  3 },
   BrickRed:           { x:    0, y:  778, width:  140, height:  41, count:  3 },
   BrickYellow:        { x:    0, y:  843, width:  140, height:  41, count:  3 },
@@ -37,8 +37,8 @@ const spcvs = new libSprite.TSpriteCanvas(cvs);
 let hndUpdateGame = null;
 
 export const GameProps = {
-  bounds : new lib2D.TRectangle({x: 26, y: 110}, SpriteInfoList.Background.width - 52, SpriteInfoList.Background.height - 195),
-  background: new libSprite.TSprite(spcvs, SpriteInfoList.Background),
+  bounds : new lib2D.TRectangle({x: 26, y: 110}, SpriteInfoList.Board.width - 52, SpriteInfoList.Board.height - 195),
+  background: new libSprite.TSprite(spcvs, SpriteInfoList.Board),
   hero: null,
   ball: null,
   bricks: [],
@@ -108,8 +108,8 @@ function drawBricks() {
 //loadGame runs once when the sprite sheet is loaded
 function loadGame() {
   //Set canvas with and height to match the sprite sheet
-  cvs.width = SpriteInfoList.Background.width;
-  cvs.height = SpriteInfoList.Background.height;
+  cvs.width = SpriteInfoList.Board.width;
+  cvs.height = SpriteInfoList.Board.height;
   spcvs.updateBoundsRect(); // The size of the canvas has changed, update the bounds rect.
 
   newGame();
